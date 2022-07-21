@@ -91,10 +91,7 @@ void reconnect() {
       // Once connected, publish an announcement...
       //      client.publish("outTopic", "hello world");
 
-      /* 以下に自分の名前を入力する */
       client.publish("301/group-3", msg);
-      /* 以上に自分の名前を入力する */
-
       Serial.println(num);
 
       // ... and resubscribe
