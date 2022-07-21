@@ -36,7 +36,7 @@ const int ledPin = 4; //赤色LED
 const int btnPin = 17; // GPIO IO17pin
 const int swPin = 17; //const...初期化した後代入されない
 int count = 0; //カウンタ変数
-int y = 0;
+int num = 0;
 int flag = 0; //フラグ初期値 0:押されていない状態
 
 WiFiClient espClient;
@@ -97,14 +97,22 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
+
+    /* 以下に自分のIDを入力する */
     String clientId = "2021-20";
+    /* 以上に自分のIDを入力する */
+    
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
     if (client.connect(clientId.c_str(), "osakahitech-group3", "tUXBCD8RHObKtxEm")) {
       Serial.println("connected");
       // Once connected, publish an announcement...
       //      client.publish("outTopic", "hello world");
+
+    /* 以下に自分の名前を入力する */
       client.publish("301/group-3", "yAmAshitA");
+    /* 以上に自分の名前を入力する */
+
       // ... and resubscribe
       //      client.subscribe("inTopic");
       client.subscribe("301/#");
@@ -134,12 +142,12 @@ void loop() {
   if (b == 1 && flag == 0) {
     flag = 1;
     count++;
-    if (y < 1) {
-      y++;
-      Serial.println(y);
+    if (num < 1) {
+      num++;
+      Serial.println(num);
     } else {
-      y = 0;
-      Serial.println(y);
+      num = 0;
+      Serial.println(num);
     }
   } else if (b == 0) {
     flag = 0;
@@ -157,12 +165,12 @@ void loop() {
     ++value;
     //    snprintf (msg, MSG_BUFFER_SIZE, "hello world #%ld", value);
     //    snprintf (msg, MSG_BUFFER_SIZE, "yAmAshitA #%ld", value);
-    if (y == 1) {
-      snprintf (msg, MSG_BUFFER_SIZE, "y1", value);
+    if (num == 1) {
+      snprintf (msg, MSG_BUFFER_SIZE, "y1", value); // 文字の一列目が個別のIDとして使われる。この場合は「y」
       Serial.println(msg);
     }
-    if (y == 0) {
-      snprintf (msg, MSG_BUFFER_SIZE, "y0", value);
+    if (num == 0) {
+      snprintf (msg, MSG_BUFFER_SIZE, "y0", value); // 文字の一列目が個別のIDとして使われる。この場合は「y」
       Serial.println(msg);
     }
     //    snprintf (msg, MSG_BUFFER_SIZE, "1", value);
