@@ -62,11 +62,13 @@ void callback(char* topic, byte* payload, unsigned int length) {
     if ((char)payload[1] == '1') {
       digitalWrite(ledPin, HIGH);   // Turn the LED on (Note that LOW is the voltage level
       num = 1;
+      Serial.println(num);
       // but actually the LED is on; this is because
       // it is active low on the ESP-01)
     } else {
       digitalWrite(ledPin, LOW);  // Turn the LED off by making the voltage HIGH
       num = 0;
+      Serial.println(num);
     }
   }
 
@@ -90,8 +92,10 @@ void reconnect() {
       //      client.publish("outTopic", "hello world");
 
       /* 以下に自分の名前を入力する */
-      client.publish("301/group-3", "yAmAshitA");
+      client.publish("301/group-3", msg);
       /* 以上に自分の名前を入力する */
+
+      Serial.println(num);
 
       // ... and resubscribe
       //      client.subscribe("inTopic");
