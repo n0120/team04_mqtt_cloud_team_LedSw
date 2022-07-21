@@ -101,7 +101,7 @@ void reconnect() {
     /* 以下に自分のIDを入力する */
     String clientId = "2021-20";
     /* 以上に自分のIDを入力する */
-    
+
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
     if (client.connect(clientId.c_str(), "osakahitech-group3", "tUXBCD8RHObKtxEm")) {
@@ -109,9 +109,9 @@ void reconnect() {
       // Once connected, publish an announcement...
       //      client.publish("outTopic", "hello world");
 
-    /* 以下に自分の名前を入力する */
+      /* 以下に自分の名前を入力する */
       client.publish("301/group-3", "yAmAshitA");
-    /* 以上に自分の名前を入力する */
+      /* 以上に自分の名前を入力する */
 
       // ... and resubscribe
       //      client.subscribe("inTopic");
@@ -145,9 +145,13 @@ void loop() {
     if (num < 1) {
       num++;
       Serial.println(num);
+      snprintf (msg, MSG_BUFFER_SIZE, "y1", value); // 文字の一列目が個別のIDとして使われる。この場合は「y」
+      client.publish("301/group-3", msg);
     } else {
       num = 0;
       Serial.println(num);
+      snprintf (msg, MSG_BUFFER_SIZE, "y0", value); // 文字の一列目が個別のIDとして使われる。この場合は「y」
+      client.publish("301/group-3", msg);
     }
   } else if (b == 0) {
     flag = 0;
@@ -158,26 +162,26 @@ void loop() {
     reconnect();
   }
   client.loop();
+  //
+  //  unsigned long now = millis();
+  //  if (now - lastMsg > 2000) {
+  //    lastMsg = now;
+  //    ++value;
+  //    //    snprintf (msg, MSG_BUFFER_SIZE, "hello world #%ld", value);
+  //    //    snprintf (msg, MSG_BUFFER_SIZE, "yAmAshitA #%ld", value);
+  //    if (num == 1) {
+  //      snprintf (msg, MSG_BUFFER_SIZE, "y1", value); // 文字の一列目が個別のIDとして使われる。この場合は「y」
+  //      Serial.println(msg);
+  //    }
+  //    if (num == 0) {
+  //      snprintf (msg, MSG_BUFFER_SIZE, "y0", value); // 文字の一列目が個別のIDとして使われる。この場合は「y」
+  //      Serial.println(msg);
+  //    }
+  //    //    snprintf (msg, MSG_BUFFER_SIZE, "1", value);
+  //    Serial.print("Publish message: ");
+  //    Serial.println(msg);
+  //    //    client.publish("outTopic", msg);
+  //    client.publish("301/group-3", msg);
 
-  unsigned long now = millis();
-  if (now - lastMsg > 2000) {
-    lastMsg = now;
-    ++value;
-    //    snprintf (msg, MSG_BUFFER_SIZE, "hello world #%ld", value);
-    //    snprintf (msg, MSG_BUFFER_SIZE, "yAmAshitA #%ld", value);
-    if (num == 1) {
-      snprintf (msg, MSG_BUFFER_SIZE, "y1", value); // 文字の一列目が個別のIDとして使われる。この場合は「y」
-      Serial.println(msg);
-    }
-    if (num == 0) {
-      snprintf (msg, MSG_BUFFER_SIZE, "y0", value); // 文字の一列目が個別のIDとして使われる。この場合は「y」
-      Serial.println(msg);
-    }
-    //    snprintf (msg, MSG_BUFFER_SIZE, "1", value);
-    Serial.print("Publish message: ");
-    Serial.println(msg);
-    //    client.publish("outTopic", msg);
-    client.publish("301/group-3", msg);
-
-  }
+  //  }
 }
