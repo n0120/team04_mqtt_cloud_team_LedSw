@@ -61,10 +61,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
   if ((char)payload[0] == 'y') {
     if ((char)payload[1] == '1') {
       digitalWrite(ledPin, HIGH);   // Turn the LED on (Note that LOW is the voltage level
+      num = 1;
       // but actually the LED is on; this is because
       // it is active low on the ESP-01)
     } else {
       digitalWrite(ledPin, LOW);  // Turn the LED off by making the voltage HIGH
+      num = 0;
     }
   }
 
